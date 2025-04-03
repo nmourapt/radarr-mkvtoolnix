@@ -21,7 +21,7 @@ jobs:
       run: |
         latest_version=$(curl -s -H "Accept: application/vnd.github+json" \
           -u "${{ github.actor }}:${{ secrets.GHCR_TOKEN }}" \
-          "https://api.github.com/orgs/hotio/packages/container/radarr/versions" | jq -r '.[0].metadata.container.tags[] | select(test("^release-[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"))' | sed 's/release-//')
+          "https://api.github.com/orgs/hotio/packages/container/radarr/versions" | jq -r '[.[] | .metadata.container.tags[] | select(test("^release-[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"))] | max' | sed 's/release-//')
         echo "latest_version=$latest_version" >> $GITHUB_ENV
 
     - name: Check existing image
