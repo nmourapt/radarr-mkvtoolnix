@@ -60,7 +60,7 @@ jobs:
     - name: Push Version Tag
       if: env.skip_build == 'false'
       run: |
-        echo "Pushing version tag: ${env.latest_version}"
+        echo "Pushing version tag: $latest_version"
         docker push ghcr.io/${{ github.repository }}:$latest_version
 
     - name: Push Latest Tag
